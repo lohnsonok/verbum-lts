@@ -1,0 +1,118 @@
+{
+  "version": "0.3.3",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/test/mocks/styleMock.js"
+    }
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "format": "prettier --write 'src/**/*.{ts,tsx,scss,css,json}'",
+    "isready": "npm run format && npm run build"
+  },
+  "peerDependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "verbum",
+  "author": "Ozan Yurtsever",
+  "module": "dist/verbum.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/verbum.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/verbum.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.18.0",
+    "@rollup/plugin-image": "^2.1.1",
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@storybook/addon-essentials": "^6.5.4",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-links": "^6.5.4",
+    "@storybook/addons": "^6.5.4",
+    "@storybook/react": "^6.5.4",
+    "@storybook/testing-react": "^1.3.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@types/intl": "^1.2.0",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "@types/resize-observer-browser": "^0.1.7",
+    "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.5",
+    "cssnano": "^5.1.9",
+    "husky": "^8.0.1",
+    "postcss": "^8.4.14",
+    "postcss-url": "^10.1.3",
+    "prettier": "^2.6.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-is": "^18.1.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "size-limit": "^7.0.8",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "@excalidraw/excalidraw": "0.11.0",
+    "@lexical/clipboard": "0.3.8",
+    "@lexical/code": "0.3.8",
+    "@lexical/file": "0.3.8",
+    "@lexical/hashtag": "0.3.8",
+    "@lexical/link": "0.3.8",
+    "@lexical/list": "0.3.8",
+    "@lexical/mark": "0.3.8",
+    "@lexical/overflow": "0.3.8",
+    "@lexical/plain-text": "0.3.8",
+    "@lexical/react": "0.3.8",
+    "@lexical/rich-text": "0.3.8",
+    "@lexical/selection": "0.3.8",
+    "@lexical/table": "0.3.8",
+    "@lexical/utils": "0.3.8",
+    "katex": "^0.15.2",
+    "lexical": "0.3.8",
+    "use-child": "^1.0.0",
+    "utility-types": "^3.10.0",
+    "y-websocket": ">=1.3.x",
+    "yjs": ">=13.5.22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozanyurtsever/verbum"
+  }
+}
