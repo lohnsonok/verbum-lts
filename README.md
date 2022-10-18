@@ -1,4 +1,6 @@
-# Verbum
+# Verbum LTS : Stable version - Not maintained 
+
+Refer to official repository for latest version
 
 Verbum - Flexible Text Editor for React
 
