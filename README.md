@@ -1,4 +1,4 @@
-# Verbum LTS : Stable version - Not maintained 
+# Verbum LTS : Stable version - Not maintained 0.3.5
 
 Refer to official repository for latest version
 
