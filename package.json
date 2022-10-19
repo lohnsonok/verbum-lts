@@ -43,7 +43,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "verbum-lts",
+  "name": "verbum-refined",
   "author": "Lionel Okpeicha",
   "module": "dist/verbum.esm.js",
   "size-limit": [
@@ -113,6 +113,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lohnsonok/verbum-lts"
+    "url": "https://github.com/lohnsonok/verbum-refined"
   }
 }

@@ -1,8 +1,8 @@
-# Verbum LTS : Stable version - Not maintained 0.3.5
+# Verbum Refined : Stable version - Not maintained 0.3.5
 
 Refer to official repository for latest version
 
-Verbum - Flexible Text Editor for React
+Verbum Refined - Flexible Text Editor for React
 
 **Verbum** is a fully flexible rich text editor based on [`lexical-playground`](https://github.com/facebook/lexical/tree/main/packages/lexical-playground) and [`lexical`](https://github.com/facebook/lexical) framework.
 
@@ -11,7 +11,7 @@ Verbum - Flexible Text Editor for React
 ## Installation
 
 ```
-npm install verbum-lts --save
+npm install verbum-refined --save
 ```
 
 ## Demo
