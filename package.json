@@ -1,5 +1,5 @@
 {
-  "version": "0.3.3",
+  "version": "0.3.5",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -43,8 +43,8 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "verbum",
-  "author": "Ozan Yurtsever",
+  "name": "verbum-lts",
+  "author": "Lionel Okpeicha",
   "module": "dist/verbum.esm.js",
   "size-limit": [
     {
@@ -113,6 +113,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ozanyurtsever/verbum"
+    "url": "https://github.com/lohnsonok/verbum-lts"
   }
 }

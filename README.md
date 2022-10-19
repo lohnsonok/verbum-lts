@@ -11,7 +11,7 @@ Verbum - Flexible Text Editor for React
 ## Installation
 
 ```
-npm install verbum --save
+npm install verbum-lts --save
 ```
 
 ## Demo
