@@ -45,14 +45,14 @@
   },
   "name": "verbum-refined",
   "author": "Lionel Okpeicha",
-  "module": "dist/verbum.esm.js",
+  "module": "dist/verbum-refined.esm.js",
   "size-limit": [
     {
-      "path": "dist/verbum.cjs.production.min.js",
+      "path": "dist/verbum-refined.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/verbum.esm.js",
+      "path": "dist/verbum-refined.esm.js",
       "limit": "10 KB"
     }
   ],
