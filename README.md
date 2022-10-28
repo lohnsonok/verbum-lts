@@ -97,6 +97,12 @@ Coming soon... -->
 | isReadOnly         | `boolean`         | optional | Enables read-only mode for the editor, default is `false`                          |
 | initialEditorState | `string`          | optional | JSON string to initialize the initial content of the editor.                       |
 | onChange           | `(editorState: string, editorInstance?: LexicalEditor) => void` | optional | Accessing the current editor state and the active editor instance                                                 |
+| locale  | `en | fr | null` | optional | Enables localization in the language of your choice, default is `en`. Available languages are `en` and `fr` |
+
+## Automatic browser language detection Support
+
+Verbum supports automatic browser language detection by default if locale not provided. If the browser language is set to `fr`, the editor will be automatically localized in French. If the browser language is set to `en`, the editor will be automatically localized in English. If the browser language is set to any other language, the editor will be automatically localized in English.
+
 
 <br />
 
@@ -150,7 +156,7 @@ $ npm run storybook
 
 - Test coverage
 - Programmatic access to the editor input as JSON
-- Localization
+- Localization in more languages
 - Ready templates with different options (MUI, Bootstrap, etc...)
 - Dark/Light modes
 - Custom styling flexibility

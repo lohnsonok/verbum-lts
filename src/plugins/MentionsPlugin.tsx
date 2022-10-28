@@ -33,6 +33,7 @@ import { createPortal } from 'react-dom';
 import useLayoutEffect from '../shared/src/useLayoutEffect';
 
 import { $createMentionNode, MentionNode } from '../nodes/MentionNode';
+import { useTranslation } from 'react-i18next';
 
 type MentionMatch = {
   leadOffset: number;
@@ -611,6 +612,7 @@ function MentionsTypeahead({
   const match = resolution.match;
   const results = useMentionLookupService(match.matchingString);
   const [selectedIndex, setSelectedIndex] = useState<null | number>(null);
+  const { t } = useTranslation(['toolbar']);
 
   useEffect(() => {
     const div = divRef.current;
@@ -766,7 +768,7 @@ function MentionsTypeahead({
 
   return (
     <div
-      aria-label="Suggested mentions"
+      aria-label={t('toolbar:mentionsPlugin.Suggested_mentions')}
       id="mentions-typeahead"
       ref={divRef}
       role="listbox"

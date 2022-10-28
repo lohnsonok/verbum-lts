@@ -26,6 +26,8 @@ import { useMemo, useRef } from 'react';
 
 import Button from '../ui/Button';
 import joinClasses from '../utils/join-classes';
+import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 
 type Options = ReadonlyArray<Option>;
 
@@ -74,12 +76,14 @@ function PollOptionComponent({
   options,
   totalVotes,
   withPollNode,
+  t
 }: {
   index: number;
   option: Option;
   options: Options;
   totalVotes: number;
   withPollNode: (cb: (PollNode) => void) => void;
+  t: TFunction;
 }): JSX.Element {
   const { clientID } = useCollaborationContext();
   const checkboxRef = useRef(null);
@@ -135,7 +139,7 @@ function PollOptionComponent({
           'PollNode__optionDelete',
           options.length < 3 && 'PollNode__optionDeleteDisabled'
         )}
-        arial-label="Remove"
+        arial-label={t('action:Remove')}
         onClick={() => {
           withPollNode((node) => {
             node.deleteOption(option);
@@ -157,6 +161,7 @@ function PollComponent({
 }): JSX.Element {
   const [editor] = useLexicalComposerContext();
   const totalVotes = useMemo(() => getTotalVotes(options), [options]);
+  const { t } = useTranslation(['action']);
 
   const withPollNode = (cb: (node: PollNode) => void): void => {
     editor.update(() => {
@@ -186,12 +191,13 @@ function PollComponent({
             index={index}
             options={options}
             totalVotes={totalVotes}
+            t={t}
           />
         );
       })}
       <div className="PollNode__footer">
         <Button onClick={addOption} small={true}>
-          Add Option
+        {t('action:Add_Option')}
         </Button>
       </div>
     </div>

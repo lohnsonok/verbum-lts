@@ -5,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import { AutoScrollPlugin } from '@lexical/react/LexicalAutoScrollPlugin';
 import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
@@ -37,6 +36,8 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import EditorContext from './context/EditorContext';
 import { LexicalEditor } from 'lexical';
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 
 interface IEditorProps {
   children?: ReactNode;
@@ -48,6 +49,7 @@ interface IEditorProps {
   listMaxIndent?: number;
   initialEditorState?: string;
   isReadOnly?: boolean;
+  locale?: 'en' | 'fr' | null;
   onChange?: (editorState: string, editorInstance?: LexicalEditor) => void;
 }
 
@@ -61,6 +63,7 @@ const Editor = ({
   placeholder = '',
   initialEditorState,
   isReadOnly = false,
+  locale = null,
   onChange,
 }: IEditorProps) => {
   const [editor] = useLexicalComposerContext();
@@ -76,6 +79,8 @@ const Editor = ({
 
   useEffect(() => {
     editor.setReadOnly(isReadOnly);
+
+    if (locale) i18next.changeLanguage(locale);
   }, []);
 
   return (

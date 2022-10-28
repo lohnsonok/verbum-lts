@@ -26,6 +26,8 @@ import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 import TableCellActionMenuPlugin from '../../TableActionMenuPlugin';
 import HorizontalRulePlugin from '../../HorizontalRulePlugin';
 import EditorContext from '../../../context/EditorContext';
+import { TranslationProps, useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 
 // Taken from https://stackoverflow.com/a/9102270
 const YOUTUBE_ID_PARSER =
@@ -41,9 +43,11 @@ const parseYouTubeVideoID = (url: string) => {
 function InsertImageDialog({
   activeEditor,
   onClose,
+  t
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
+  t: TFunction
 }): JSX.Element {
   const [mode, setMode] = useState<null | 'url' | 'file'>(null);
 
@@ -65,24 +69,24 @@ function InsertImageDialog({
               })
             }
           >
-            Sample
+            {t('toolbar:insertDropdown.Mode.Sample')}
           </Button>
           <Button
             data-test-id="image-modal-option-url"
             onClick={() => setMode('url')}
           >
-            URL
+            {t('toolbar:insertDropdown.Mode.URL')}
           </Button>
           <Button
             data-test-id="image-modal-option-file"
             onClick={() => setMode('file')}
           >
-            File
+            {t('toolbar:insertDropdown.Mode.File')}
           </Button>
         </div>
       )}
-      {mode === 'url' && <InsertImageUriDialogBody onClick={onClick} />}
-      {mode === 'file' && <InsertImageUploadedDialogBody onClick={onClick} />}
+      {mode === 'url' && <InsertImageUriDialogBody onClick={onClick} t={t} />}
+      {mode === 'file' && <InsertImageUploadedDialogBody onClick={onClick} t={t} />}
     </>
   );
 }
@@ -90,9 +94,11 @@ function InsertImageDialog({
 function InsertTableDialog({
   activeEditor,
   onClose,
+  t
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
+  t: TFunction;
 }): JSX.Element {
   const [rows, setRows] = useState('5');
   const [columns, setColumns] = useState('5');
@@ -104,13 +110,21 @@ function InsertTableDialog({
 
   return (
     <>
-      <TextInput label="No of rows" onChange={setRows} value={rows} />
-      <TextInput label="No of columns" onChange={setColumns} value={columns} />
+      <TextInput
+        label={t('toolbar:insertDropdown.No_of_rows')}
+        onChange={setRows}
+        value={rows} />
+      <TextInput
+        label={t('toolbar:insertDropdown.No_of_columns')}
+        onChange={setColumns}
+        value={columns} />
       <div
         className="ToolbarPlugin__dialogActions"
         data-test-id="table-model-confirm-insert"
       >
-        <Button onClick={onClick}>Confirm</Button>
+        <Button onClick={onClick}>
+          {t('action:Confirm')}
+        </Button>
       </div>
     </>
   );
@@ -119,9 +133,11 @@ function InsertTableDialog({
 function InsertPollDialog({
   activeEditor,
   onClose,
+  t
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
+  t: TFunction;
 }): JSX.Element {
   const [question, setQuestion] = useState('');
 
@@ -132,10 +148,13 @@ function InsertPollDialog({
 
   return (
     <>
-      <TextInput label="Question" onChange={setQuestion} value={question} />
+      <TextInput
+        label={t('toolbar:insertDropdown.Question')}
+        onChange={setQuestion}
+        value={question} />
       <div className="ToolbarPlugin__dialogActions">
         <Button disabled={question.trim() === ''} onClick={onClick}>
-          Confirm
+          {t('action:Confirm')}
         </Button>
       </div>
     </>
@@ -147,9 +166,11 @@ const VALID_TWITTER_URL = /twitter.com\/[0-9a-zA-Z]{1,20}\/status\/([0-9]*)/g;
 function InsertTweetDialog({
   activeEditor,
   onClose,
+  t
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
+  t: TFunction;
 }): JSX.Element {
   const [text, setText] = useState('');
 
@@ -164,14 +185,14 @@ function InsertTweetDialog({
   return (
     <>
       <TextInput
-        label="Tweet URL"
+        label={t('toolbar:insertDropdown.Tweet_URL')}
         placeholder="i.e. https://twitter.com/jack/status/20"
         onChange={setText}
         value={text}
       />
       <div className="ToolbarPlugin__dialogActions">
         <Button disabled={isDisabled} onClick={onClick}>
-          Confirm
+          {t('action:Confirm')}
         </Button>
       </div>
     </>
@@ -180,8 +201,10 @@ function InsertTweetDialog({
 
 function InsertImageUriDialogBody({
   onClick,
+  t
 }: {
   onClick: (payload: InsertImagePayload) => void;
+  t: TFunction;
 }) {
   const [src, setSrc] = useState('');
   const [altText, setAltText] = useState('');
@@ -191,15 +214,15 @@ function InsertImageUriDialogBody({
   return (
     <>
       <TextInput
-        label="Image URL"
+        label={t('toolbar:insertDropdown.Image_URL')}
         placeholder="i.e. https://source.unsplash.com/random"
         onChange={setSrc}
         value={src}
         data-test-id="image-modal-url-input"
       />
       <TextInput
-        label="Alt Text"
-        placeholder="Random unsplash image"
+        label={t('toolbar:insertDropdown.Image_URL_Alt_Text')}
+        placeholder={t('toolbar:insertDropdown.Image_URL_Placeholder')}
         onChange={setAltText}
         value={altText}
         data-test-id="image-modal-alt-text-input"
@@ -210,7 +233,7 @@ function InsertImageUriDialogBody({
           disabled={isDisabled}
           onClick={() => onClick({ altText, src })}
         >
-          Confirm
+          {t('action:Confirm')}
         </Button>
       </div>
     </>
@@ -219,8 +242,10 @@ function InsertImageUriDialogBody({
 
 function InsertImageUploadedDialogBody({
   onClick,
+  t
 }: {
   onClick: (payload: InsertImagePayload) => void;
+  t: TFunction;
 }) {
   const [src, setSrc] = useState('');
   const [altText, setAltText] = useState('');
@@ -241,14 +266,14 @@ function InsertImageUploadedDialogBody({
   return (
     <>
       <FileInput
-        label="Image Upload"
+        label={t('toolbar:insertDropdown.Image_Upload')}
         onChange={loadImage}
         accept="image/*"
         data-test-id="image-modal-file-upload"
       />
       <TextInput
-        label="Alt Text"
-        placeholder="Descriptive alternative text"
+        label={t('toolbar:insertDropdown.Image_Upload_Alt_Text')}
+        placeholder={t('toolbar:insertDropdown.Image_Upload_Placeholder')}
         onChange={setAltText}
         value={altText}
         data-test-id="image-modal-alt-text-input"
@@ -259,7 +284,7 @@ function InsertImageUploadedDialogBody({
           disabled={isDisabled}
           onClick={() => onClick({ altText, src })}
         >
-          Confirm
+          {t('action:Confirm')}
         </Button>
       </div>
     </>
@@ -269,9 +294,11 @@ function InsertImageUploadedDialogBody({
 function InsertYouTubeDialog({
   activeEditor,
   onClose,
+  t
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
+  t: TFunction;
 }): JSX.Element {
   const [text, setText] = useState('');
 
@@ -289,7 +316,7 @@ function InsertYouTubeDialog({
     <>
       <TextInput
         data-test-id="youtube-embed-modal-url"
-        label="YouTube URL"
+        label={t('toolbar:insertDropdown.YouTube_URL')}
         placeholder="i.e. https://www.youtube.com/watch?v=jNQXAC9IVRw"
         onChange={setText}
         value={text}
@@ -300,7 +327,7 @@ function InsertYouTubeDialog({
           disabled={isDisabled}
           onClick={onClick}
         >
-          Confirm
+          {t('action:Confirm')}
         </Button>
       </div>
     </>
@@ -345,16 +372,17 @@ export interface IInsertDropdownProps {
 const InsertDropdown: React.FC<IInsertDropdownProps> = ({
   enableTable = true,
   enableImage = true,
-  enableYoutube = false,
-  enableTwitter = false,
-  enablePoll = false,
-  enableEquations = false,
-  enableExcalidraw = false,
-  enableHorizontalRule = false,
-  enableStickyNote = false,
+  enableYoutube = true,
+  enableTwitter = true,
+  enablePoll = true,
+  enableEquations = true,
+  enableExcalidraw = true,
+  enableHorizontalRule = true,
+  enableStickyNote = true,
 }: IInsertDropdownProps) => {
   const { initialEditor, activeEditor } = useContext(EditorContext);
   const [modal, showModal] = useModal();
+  const { t } = useTranslation(['toolbar', 'action']);
 
   return (
     <div>
@@ -375,8 +403,8 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
 
       <DropDown
         buttonClassName="toolbar-item spaced"
-        buttonLabel="Insert"
-        buttonAriaLabel="Insert specialized editor node"
+        buttonLabel={t('toolbar:insertDropdown.Title')}
+        buttonAriaLabel={t('toolbar:insertDropdown.Description')}
         buttonIconClassName="icon plus"
       >
         {enableHorizontalRule && (
@@ -391,24 +419,31 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
             type="button"
           >
             <i className="icon horizontal-rule" />
-            <span className="text">Horizontal Rule</span>
+            <span className="text">
+              {t('toolbar:insertDropdown.Horizontal_Rule')}
+            </span>
           </button>
         )}
         {enableImage && (
           <button
             onClick={() => {
-              showModal('Insert Image', (onClose) => (
-                <InsertImageDialog
-                  activeEditor={activeEditor}
-                  onClose={onClose}
-                />
-              ));
+              showModal(
+                t('toolbar:insertDropdown.Insert_Image'),
+                (onClose) => (
+                  <InsertImageDialog
+                    activeEditor={activeEditor}
+                    onClose={onClose}
+                    t={t}
+                  />
+                ));
             }}
             className="item"
             type="button"
           >
             <i className="icon image" />
-            <span className="text">Image</span>
+            <span className="text">
+              {t('toolbar:insertDropdown.Image')}
+            </span>
           </button>
         )}
         {enableExcalidraw && (
@@ -423,94 +458,120 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
             type="button"
           >
             <i className="icon diagram-2" />
-            <span className="text">Excalidraw</span>
+            <span className="text">
+              {t('toolbar:insertDropdown.Excalidraw')}
+            </span>
           </button>
         )}
         {enableTable && (
           <div>
             <button
               onClick={() => {
-                showModal('Insert Table', (onClose) => (
-                  <InsertTableDialog
-                    activeEditor={activeEditor}
-                    onClose={onClose}
-                  />
-                ));
+                showModal(
+                  t('toolbar:insertDropdown.Insert_Table'),
+                  (onClose) => (
+                    <InsertTableDialog
+                      activeEditor={activeEditor}
+                      onClose={onClose}
+                      t={t}
+                    />
+                  ));
               }}
               className="item"
               type="button"
             >
               <i className="icon table" />
-              <span className="text">Table</span>
+              <span className="text">
+                {t('toolbar:insertDropdown.Table')}
+              </span>
             </button>
           </div>
         )}
         {enablePoll && (
           <button
             onClick={() => {
-              showModal('Insert Poll', (onClose) => (
-                <InsertPollDialog
-                  activeEditor={activeEditor}
-                  onClose={onClose}
-                />
-              ));
+              showModal(
+                t('toolbar:insertDropdown.Insert_Poll'),
+                (onClose) => (
+                  <InsertPollDialog
+                    activeEditor={activeEditor}
+                    onClose={onClose}
+                    t={t}
+                  />
+                ));
             }}
             className="item"
             type="button"
           >
             <i className="icon poll" />
-            <span className="text">Poll</span>
+            <span className="text">
+              {t('toolbar:insertDropdown.Poll')}
+            </span>
           </button>
         )}
         {enableTwitter && (
           <button
             onClick={() => {
-              showModal('Insert Tweet', (onClose) => (
-                <InsertTweetDialog
-                  activeEditor={activeEditor}
-                  onClose={onClose}
-                />
-              ));
+              showModal(
+                t('toolbar:insertDropdown.Insert_Tweet'),
+                (onClose) => (
+                  <InsertTweetDialog
+                    activeEditor={activeEditor}
+                    onClose={onClose}
+                    t={t}
+                  />
+                ));
             }}
             className="item"
             type="button"
           >
             <i className="icon tweet" />
-            <span className="text">Tweet</span>
+            <span className="text">
+              {t('toolbar:insertDropdown.Tweet')}
+            </span>
           </button>
         )}
         {enableYoutube && (
           <button
             onClick={() => {
-              showModal('Insert YouTube Video', (onClose) => (
-                <InsertYouTubeDialog
-                  activeEditor={activeEditor}
-                  onClose={onClose}
-                />
-              ));
+              showModal(
+                t('toolbar:insertDropdown.Insert_YouTube_Video'),
+                (onClose) => (
+                  <InsertYouTubeDialog
+                    activeEditor={activeEditor}
+                    onClose={onClose}
+                    t={t}
+                  />
+                ));
             }}
             className="item"
             type="button"
           >
             <i className="icon youtube" />
-            <span className="text">YouTube Video</span>
+            <span className="text">
+              {t('toolbar:insertDropdown.YouTube_Video')}
+            </span>
           </button>
         )}
         {enableEquations && (
           <button
             onClick={() => {
-              showModal('Insert Equation', (onClose) => (
-                <InsertEquationDialog
-                  activeEditor={activeEditor}
-                  onClose={onClose}
-                />
-              ));
+              showModal(
+                t('toolbar:insertDropdown.Insert_Equation'),
+                (onClose) => (
+                  <InsertEquationDialog
+                    activeEditor={activeEditor}
+                    onClose={onClose}
+                  />
+                ));
             }}
             className="item"
             type="button"
           >
             <i className="icon equation" />
-            <span className="text">Equation</span>
+            <span className="text">
+              {t('toolbar:insertDropdown.Equation')}
+            </span>
           </button>
         )}
         {enableStickyNote && (
@@ -526,7 +587,9 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
             type="button"
           >
             <i className="icon sticky" />
-            <span className="text">Sticky Note</span>
+            <span className="text">
+              {t('toolbar:insertDropdown.Sticky_Note')}
+            </span>
           </button>
         )}
       </DropDown>
