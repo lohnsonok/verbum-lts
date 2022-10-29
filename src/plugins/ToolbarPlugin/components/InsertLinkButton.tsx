@@ -4,20 +4,18 @@ import EditorContext from '../../../context/EditorContext';
 import ToolbarContext from '../../../context/ToolbarContext';
 import FloatingLinkEditor from './FloatingLinkEditor';
 import { createPortal } from 'react-dom';
-import { useTranslation } from 'react-i18next';
 
 const InsertLinkButton = () => {
   const { activeEditor } = useContext(EditorContext);
   const { isLink, insertLink } = useContext(ToolbarContext);
-  const { t } = useTranslation('toolbar');
 
   return (
     <>
       <button
         onClick={insertLink}
         className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
-        aria-label={t('toolbar:insertLinkButton.Description')}
-        title={t('toolbar:insertLinkButton.Description')}
+        aria-label="Insérer un lien"
+        title="Insérer un lien"
         type="button"
       >
         <i className="format link" />

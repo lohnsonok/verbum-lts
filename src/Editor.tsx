@@ -36,8 +36,6 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import EditorContext from './context/EditorContext';
 import { LexicalEditor } from 'lexical';
-import { useTranslation } from 'react-i18next';
-import i18next from 'i18next';
 
 interface IEditorProps {
   children?: ReactNode;
@@ -80,7 +78,7 @@ const Editor = ({
   useEffect(() => {
     editor.setReadOnly(isReadOnly);
 
-    if (locale) i18next.changeLanguage(locale);
+    // if (locale) i18next.changeLanguage(locale);
   }, []);
 
   return (

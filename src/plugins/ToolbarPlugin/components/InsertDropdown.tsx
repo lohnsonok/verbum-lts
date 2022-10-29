@@ -26,8 +26,6 @@ import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 import TableCellActionMenuPlugin from '../../TableActionMenuPlugin';
 import HorizontalRulePlugin from '../../HorizontalRulePlugin';
 import EditorContext from '../../../context/EditorContext';
-import { TranslationProps, useTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
 
 // Taken from https://stackoverflow.com/a/9102270
 const YOUTUBE_ID_PARSER =
@@ -43,11 +41,9 @@ const parseYouTubeVideoID = (url: string) => {
 function InsertImageDialog({
   activeEditor,
   onClose,
-  t
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
-  t: TFunction
 }): JSX.Element {
   const [mode, setMode] = useState<null | 'url' | 'file'>(null);
 
@@ -61,32 +57,21 @@ function InsertImageDialog({
       {!mode && (
         <div className="ToolbarPlugin__dialogButtonsList">
           <Button
-            data-test-id="image-modal-option-sample"
-            onClick={() =>
-              onClick({
-                altText: 'Yellow flower in tilt shift lens',
-                src: null, //yellowFlowerImage,
-              })
-            }
-          >
-            {t('toolbar:insertDropdown.Mode.Sample')}
-          </Button>
-          <Button
             data-test-id="image-modal-option-url"
             onClick={() => setMode('url')}
           >
-            {t('toolbar:insertDropdown.Mode.URL')}
+            URL
           </Button>
           <Button
             data-test-id="image-modal-option-file"
             onClick={() => setMode('file')}
           >
-            {t('toolbar:insertDropdown.Mode.File')}
+            Fichier
           </Button>
         </div>
       )}
-      {mode === 'url' && <InsertImageUriDialogBody onClick={onClick} t={t} />}
-      {mode === 'file' && <InsertImageUploadedDialogBody onClick={onClick} t={t} />}
+      {mode === 'url' && <InsertImageUriDialogBody onClick={onClick} />}
+      {mode === 'file' && <InsertImageUploadedDialogBody onClick={onClick} />}
     </>
   );
 }
@@ -94,11 +79,9 @@ function InsertImageDialog({
 function InsertTableDialog({
   activeEditor,
   onClose,
-  t
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
-  t: TFunction;
 }): JSX.Element {
   const [rows, setRows] = useState('5');
   const [columns, setColumns] = useState('5');
@@ -111,11 +94,11 @@ function InsertTableDialog({
   return (
     <>
       <TextInput
-        label={t('toolbar:insertDropdown.No_of_rows')}
+        label="No de lignes"
         onChange={setRows}
         value={rows} />
       <TextInput
-        label={t('toolbar:insertDropdown.No_of_columns')}
+        label="No de colonnes"
         onChange={setColumns}
         value={columns} />
       <div
@@ -123,7 +106,7 @@ function InsertTableDialog({
         data-test-id="table-model-confirm-insert"
       >
         <Button onClick={onClick}>
-          {t('action:Confirm')}
+          Confirmer
         </Button>
       </div>
     </>
@@ -133,11 +116,9 @@ function InsertTableDialog({
 function InsertPollDialog({
   activeEditor,
   onClose,
-  t
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
-  t: TFunction;
 }): JSX.Element {
   const [question, setQuestion] = useState('');
 
@@ -149,12 +130,12 @@ function InsertPollDialog({
   return (
     <>
       <TextInput
-        label={t('toolbar:insertDropdown.Question')}
+        label="Question"
         onChange={setQuestion}
         value={question} />
       <div className="ToolbarPlugin__dialogActions">
         <Button disabled={question.trim() === ''} onClick={onClick}>
-          {t('action:Confirm')}
+          Confirmer
         </Button>
       </div>
     </>
@@ -166,11 +147,9 @@ const VALID_TWITTER_URL = /twitter.com\/[0-9a-zA-Z]{1,20}\/status\/([0-9]*)/g;
 function InsertTweetDialog({
   activeEditor,
   onClose,
-  t
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
-  t: TFunction;
 }): JSX.Element {
   const [text, setText] = useState('');
 
@@ -185,14 +164,14 @@ function InsertTweetDialog({
   return (
     <>
       <TextInput
-        label={t('toolbar:insertDropdown.Tweet_URL')}
+        label="URL du Tweet"
         placeholder="i.e. https://twitter.com/jack/status/20"
         onChange={setText}
         value={text}
       />
       <div className="ToolbarPlugin__dialogActions">
         <Button disabled={isDisabled} onClick={onClick}>
-          {t('action:Confirm')}
+          Confirmer
         </Button>
       </div>
     </>
@@ -201,10 +180,8 @@ function InsertTweetDialog({
 
 function InsertImageUriDialogBody({
   onClick,
-  t
 }: {
   onClick: (payload: InsertImagePayload) => void;
-  t: TFunction;
 }) {
   const [src, setSrc] = useState('');
   const [altText, setAltText] = useState('');
@@ -214,15 +191,15 @@ function InsertImageUriDialogBody({
   return (
     <>
       <TextInput
-        label={t('toolbar:insertDropdown.Image_URL')}
+        label="URL de l'image"
         placeholder="i.e. https://source.unsplash.com/random"
         onChange={setSrc}
         value={src}
         data-test-id="image-modal-url-input"
       />
       <TextInput
-        label={t('toolbar:insertDropdown.Image_URL_Alt_Text')}
-        placeholder={t('toolbar:insertDropdown.Image_URL_Placeholder')}
+        label="Alt Text"
+        placeholder="Image aléatoire sur unsplash"
         onChange={setAltText}
         value={altText}
         data-test-id="image-modal-alt-text-input"
@@ -233,7 +210,7 @@ function InsertImageUriDialogBody({
           disabled={isDisabled}
           onClick={() => onClick({ altText, src })}
         >
-          {t('action:Confirm')}
+          Confirmer
         </Button>
       </div>
     </>
@@ -242,10 +219,8 @@ function InsertImageUriDialogBody({
 
 function InsertImageUploadedDialogBody({
   onClick,
-  t
 }: {
   onClick: (payload: InsertImagePayload) => void;
-  t: TFunction;
 }) {
   const [src, setSrc] = useState('');
   const [altText, setAltText] = useState('');
@@ -266,14 +241,14 @@ function InsertImageUploadedDialogBody({
   return (
     <>
       <FileInput
-        label={t('toolbar:insertDropdown.Image_Upload')}
+        label="Charger une image"
         onChange={loadImage}
         accept="image/*"
         data-test-id="image-modal-file-upload"
       />
       <TextInput
-        label={t('toolbar:insertDropdown.Image_Upload_Alt_Text')}
-        placeholder={t('toolbar:insertDropdown.Image_Upload_Placeholder')}
+        label="Alt_Text"
+        placeholder="Texte alternatif descriptif"
         onChange={setAltText}
         value={altText}
         data-test-id="image-modal-alt-text-input"
@@ -284,7 +259,7 @@ function InsertImageUploadedDialogBody({
           disabled={isDisabled}
           onClick={() => onClick({ altText, src })}
         >
-          {t('action:Confirm')}
+          Confirmer
         </Button>
       </div>
     </>
@@ -294,11 +269,9 @@ function InsertImageUploadedDialogBody({
 function InsertYouTubeDialog({
   activeEditor,
   onClose,
-  t
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
-  t: TFunction;
 }): JSX.Element {
   const [text, setText] = useState('');
 
@@ -316,7 +289,7 @@ function InsertYouTubeDialog({
     <>
       <TextInput
         data-test-id="youtube-embed-modal-url"
-        label={t('toolbar:insertDropdown.YouTube_URL')}
+        label="Vidéo YouTube"
         placeholder="i.e. https://www.youtube.com/watch?v=jNQXAC9IVRw"
         onChange={setText}
         value={text}
@@ -327,7 +300,7 @@ function InsertYouTubeDialog({
           disabled={isDisabled}
           onClick={onClick}
         >
-          {t('action:Confirm')}
+          Confirmer
         </Button>
       </div>
     </>
@@ -372,17 +345,16 @@ export interface IInsertDropdownProps {
 const InsertDropdown: React.FC<IInsertDropdownProps> = ({
   enableTable = true,
   enableImage = true,
-  enableYoutube = true,
-  enableTwitter = true,
-  enablePoll = true,
-  enableEquations = true,
-  enableExcalidraw = true,
-  enableHorizontalRule = true,
-  enableStickyNote = true,
+  enableYoutube = false,
+  enableTwitter = false,
+  enablePoll = false,
+  enableEquations = false,
+  enableExcalidraw = false,
+  enableHorizontalRule = false,
+  enableStickyNote = false,
 }: IInsertDropdownProps) => {
   const { initialEditor, activeEditor } = useContext(EditorContext);
   const [modal, showModal] = useModal();
-  const { t } = useTranslation(['toolbar', 'action']);
 
   return (
     <div>
@@ -403,8 +375,8 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
 
       <DropDown
         buttonClassName="toolbar-item spaced"
-        buttonLabel={t('toolbar:insertDropdown.Title')}
-        buttonAriaLabel={t('toolbar:insertDropdown.Description')}
+        buttonLabel="Insérer"
+        buttonAriaLabel="Insérer un nœud d'éditeur spécialisé"
         buttonIconClassName="icon plus"
       >
         {enableHorizontalRule && (
@@ -420,7 +392,7 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           >
             <i className="icon horizontal-rule" />
             <span className="text">
-              {t('toolbar:insertDropdown.Horizontal_Rule')}
+              Ligne horizontale
             </span>
           </button>
         )}
@@ -428,12 +400,11 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           <button
             onClick={() => {
               showModal(
-                t('toolbar:insertDropdown.Insert_Image'),
+                'Insérer une Image',
                 (onClose) => (
                   <InsertImageDialog
                     activeEditor={activeEditor}
                     onClose={onClose}
-                    t={t}
                   />
                 ));
             }}
@@ -442,7 +413,7 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           >
             <i className="icon image" />
             <span className="text">
-              {t('toolbar:insertDropdown.Image')}
+              Image
             </span>
           </button>
         )}
@@ -459,7 +430,7 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           >
             <i className="icon diagram-2" />
             <span className="text">
-              {t('toolbar:insertDropdown.Excalidraw')}
+              Excalidraw
             </span>
           </button>
         )}
@@ -468,12 +439,11 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
             <button
               onClick={() => {
                 showModal(
-                  t('toolbar:insertDropdown.Insert_Table'),
+                  'Insérer une Table',
                   (onClose) => (
                     <InsertTableDialog
                       activeEditor={activeEditor}
                       onClose={onClose}
-                      t={t}
                     />
                   ));
               }}
@@ -482,7 +452,7 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
             >
               <i className="icon table" />
               <span className="text">
-                {t('toolbar:insertDropdown.Table')}
+                Table
               </span>
             </button>
           </div>
@@ -491,12 +461,11 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           <button
             onClick={() => {
               showModal(
-                t('toolbar:insertDropdown.Insert_Poll'),
+                'Sondage',
                 (onClose) => (
                   <InsertPollDialog
                     activeEditor={activeEditor}
                     onClose={onClose}
-                    t={t}
                   />
                 ));
             }}
@@ -505,7 +474,7 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           >
             <i className="icon poll" />
             <span className="text">
-              {t('toolbar:insertDropdown.Poll')}
+              Insérer un sondage
             </span>
           </button>
         )}
@@ -513,12 +482,11 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           <button
             onClick={() => {
               showModal(
-                t('toolbar:insertDropdown.Insert_Tweet'),
+                'Insérer un Tweet',
                 (onClose) => (
                   <InsertTweetDialog
                     activeEditor={activeEditor}
                     onClose={onClose}
-                    t={t}
                   />
                 ));
             }}
@@ -527,7 +495,7 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           >
             <i className="icon tweet" />
             <span className="text">
-              {t('toolbar:insertDropdown.Tweet')}
+              Tweet
             </span>
           </button>
         )}
@@ -535,12 +503,11 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           <button
             onClick={() => {
               showModal(
-                t('toolbar:insertDropdown.Insert_YouTube_Video'),
+                'Insérer une vidéo YouTube',
                 (onClose) => (
                   <InsertYouTubeDialog
                     activeEditor={activeEditor}
                     onClose={onClose}
-                    t={t}
                   />
                 ));
             }}
@@ -549,7 +516,7 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           >
             <i className="icon youtube" />
             <span className="text">
-              {t('toolbar:insertDropdown.YouTube_Video')}
+              Video Youtube
             </span>
           </button>
         )}
@@ -557,7 +524,7 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           <button
             onClick={() => {
               showModal(
-                t('toolbar:insertDropdown.Insert_Equation'),
+                'Insérer une équation',
                 (onClose) => (
                   <InsertEquationDialog
                     activeEditor={activeEditor}
@@ -570,7 +537,7 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           >
             <i className="icon equation" />
             <span className="text">
-              {t('toolbar:insertDropdown.Equation')}
+              Equation
             </span>
           </button>
         )}
@@ -588,7 +555,7 @@ const InsertDropdown: React.FC<IInsertDropdownProps> = ({
           >
             <i className="icon sticky" />
             <span className="text">
-              {t('toolbar:insertDropdown.Sticky_Note')}
+              Note autocollante
             </span>
           </button>
         )}

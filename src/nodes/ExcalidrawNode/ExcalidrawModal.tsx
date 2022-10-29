@@ -17,7 +17,6 @@ import { createPortal } from 'react-dom';
 import Button from '../../ui/Button';
 import Modal from '../../ui/Modal';
 import { ExcalidrawElement } from '@excalidraw/excalidraw/types/element/types';
-import { useTranslation } from 'react-i18next';
 
 export type ExcalidrawElementFragment = {
   isDeleted?: boolean;
@@ -65,7 +64,6 @@ export default function ExcalidrawModal({
   const [discardModalOpen, setDiscardModalOpen] = useState(false);
   const [elements, setElements] =
     useState<ReadonlyArray<ExcalidrawElementFragment>>(initialElements);
-  const { t } = useTranslation(['action']);
 
   useEffect(() => {
     if (excaliDrawModelRef.current !== null) {
@@ -122,13 +120,13 @@ export default function ExcalidrawModal({
   function ShowDiscardDialog(): JSX.Element {
     return (
       <Modal
-        title={t('action:Discard')}
+        title="Abandonner"
         onClose={() => {
           setDiscardModalOpen(false);
         }}
         closeOnClickOutside={true}
       >
-        {t('action:Confirm_Discard')}
+        Êtes-vous sûr de vouloir abandonner les modifications ?
         <div className="ExcalidrawModal__discardModal">
           <Button
             onClick={() => {
@@ -136,14 +134,14 @@ export default function ExcalidrawModal({
               onHide();
             }}
           >
-            {t('action:Discard')}
+            Abandonner
           </Button>{' '}
           <Button
             onClick={() => {
               setDiscardModalOpen(false);
             }}
           >
-            {t('action:Cancel')}
+            Annuler
           </Button>
         </div>
       </Modal>
@@ -185,10 +183,10 @@ export default function ExcalidrawModal({
           />
           <div className="ExcalidrawModal__actions">
             <button className="action-button" onClick={discard}>
-              {t('action:Discard')}
+              Abandonner
             </button>
             <button className="action-button" onClick={save}>
-              {t('action:Save')}
+              Sauvegarder
             </button>
           </div>
         </div>

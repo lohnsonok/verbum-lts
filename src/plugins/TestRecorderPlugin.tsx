@@ -14,7 +14,6 @@ import * as React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { IS_APPLE } from '../shared/src/environment';
 import useLayoutEffect from '../shared/src/useLayoutEffect';
-import { useTranslation } from 'react-i18next';
 
 const copy = (text: string | null) => {
   const textArea = document.createElement('textarea');
@@ -153,7 +152,6 @@ function useTestRecorder(editor: LexicalEditor): [JSX.Element, JSX.Element] {
   const previousSelectionRef = useRef(null);
   const skipNextSelectionChangeRef = useRef(false);
   const preRef = useRef(null);
-  const { t } = useTranslation(['toolbar']);
 
   const getCurrentEditor = useCallback(() => {
     return editor;
@@ -404,7 +402,7 @@ ${steps.map(formatStep).join(`\n`)}
       id="test-recorder-button"
       className={`editor-dev-button ${isRecording ? 'active' : ''}`}
       onClick={() => toggleEditorSelection(getCurrentEditor())}
-      title={isRecording ? t('toolbar:testRecorderPlugin.Disable_test_recorder') : t('toolbar:testRecorderPlugin.Enable_test_recorder')}
+      title={isRecording ? "Désactiver l'enregistreur de test" : "Activer l'enregistreur de test"}
       type="button"
     />
   );
@@ -414,21 +412,21 @@ ${steps.map(formatStep).join(`\n`)}
         <button
           className="test-recorder-button"
           id="test-recorder-button-snapshot"
-          title={t('toolbar:testRecorderPlugin.Insert_snapshot')}
+          title="Insérer un instantané"
           onClick={onSnapshotClick}
           type="button"
         />
         <button
           className="test-recorder-button"
           id="test-recorder-button-copy"
-          title={t('toolbar:testRecorderPlugin.Copy_to_clipboard')}
+          title="Copier dans le presse-papiers"
           onClick={onCopyClick}
           type="button"
         />
         <button
           className="test-recorder-button"
           id="test-recorder-button-download"
-          title={t('toolbar:testRecorderPlugin.Download_as_a_file')}
+          title="Télécharger en tant que fichier"
           onClick={onDownloadClick}
           type="button"
         />

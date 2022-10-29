@@ -1,5 +1,5 @@
 {
-  "version": "0.3.7",
+  "version": "0.3.8",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -16,11 +16,11 @@
     }
   },
   "scripts": {
-    "start": "tsdx watch  --transpileOnly",
+    "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
-    "prepare": "tsdx build --transpileOnly",
+    "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006",
@@ -104,6 +104,7 @@
     "@lexical/selection": "0.3.8",
     "@lexical/table": "0.3.8",
     "@lexical/utils": "0.3.8",
+    "eslint-plugin-prettier": "^4.2.1",
     "i18next": "^22.0.3",
     "i18next-browser-languagedetector": "^7.0.0",
     "katex": "^0.15.2",

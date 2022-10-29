@@ -3,18 +3,16 @@ import React, { useContext } from 'react';
 import DropDown from '../../../ui/DropDown';
 import EditorContext from '../../../context/EditorContext';
 import ToolbarContext from '../../../context/ToolbarContext';
-import { useTranslation } from 'react-i18next';
 
 const TextFormatDropdown = () => {
   const { activeEditor } = useContext(EditorContext);
   const { isStrikethrough, isSubscript, isSuperscript } =
     useContext(ToolbarContext);
-  const { t } = useTranslation('toolbar');
   return (
     <DropDown
       buttonClassName="toolbar-item spaced"
       buttonLabel=""
-      buttonAriaLabel={t('toolbar:textFormatDropdown.Description')}
+      buttonAriaLabel="Options de formatage pour les styles de texte supplémentaires"
       buttonIconClassName="icon dropdown-more"
     >
       <button
@@ -24,24 +22,24 @@ const TextFormatDropdown = () => {
         className={
           'item ' + (isStrikethrough ? 'active dropdown-item-active' : '')
         }
-        title={t('toolbar:textFormatDropdown.Options.Strikethrough.Label')}
-        aria-label={t('toolbar:textFormatDropdown.Options.Strikethrough.Description')}
+        title="Barré"
+        aria-label="Formater le texte avec une barre oblique"
         type="button"
       >
         <i className="icon strikethrough" />
-        <span className="text">{t('toolbar:textFormatDropdown.Options.Strikethrough.Label')}</span>
+        <span className="text">Barré</span>
       </button>
       <button
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript');
         }}
         className={'item ' + (isSubscript ? 'active dropdown-item-active' : '')}
-        title={t('toolbar:textFormatDropdown.Options.Subscript.Label')}
-        aria-label={t('toolbar:textFormatDropdown.Options.Subscript.Description')}
+        title="Indice"
+        aria-label="Formater le texte avec un indice"
         type="button"
       >
         <i className="icon subscript" />
-        <span className="text">{t('toolbar:textFormatDropdown.Options.Subscript.Label')}</span>
+        <span className="text">Indice</span>
       </button>
       <button
         onClick={() => {
@@ -50,12 +48,12 @@ const TextFormatDropdown = () => {
         className={
           'item ' + (isSuperscript ? 'active dropdown-item-active' : '')
         }
-        title={t('toolbar:textFormatDropdown.Options.Superscript.Label')}
-        aria-label={t('toolbar:textFormatDropdown.Options.Superscript.Description')}
+        title="Exposant"
+        aria-label="Formater le texte avec un exposant"
         type="button"
       >
         <i className="icon superscript" />
-        <span className="text">{t('toolbar:textFormatDropdown.Options.Superscript.Label')}</span>
+        <span className="text">Exposant</span>
       </button>
     </DropDown>
   );

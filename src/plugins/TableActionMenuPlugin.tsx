@@ -24,7 +24,6 @@ import {
   TableCellHeaderStates,
   TableCellNode,
 } from '@lexical/table';
-import { TFunction } from 'i18next';
 import {
   $getSelection,
   $isGridSelection,
@@ -34,14 +33,12 @@ import {
 import * as React from 'react';
 import { ReactPortal, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useTranslation } from 'react-i18next';
 
 type TableCellActionMenuProps = Readonly<{
   contextRef: { current: null | HTMLElement };
   onClose: () => void;
   setIsMenuOpen: (isOpen: boolean) => void;
   tableCellNode: TableCellNode;
-  t: TFunction;
 }>;
 
 function TableActionMenu({
@@ -49,7 +46,6 @@ function TableActionMenu({
   tableCellNode: _tableCellNode,
   setIsMenuOpen,
   contextRef,
-  t
 }: TableCellActionMenuProps) {
   const [editor] = useLexicalComposerContext();
   const dropDownRef = useRef<HTMLDivElement | null>(null);
@@ -336,18 +332,18 @@ function TableActionMenu({
     >
       <button className="item" onClick={() => insertTableRowAtSelection(false)} type="button">
         <span className="text">
-          {t('toolbar:tableActionMenuPlugin.Insert')}
+          Insérer
           {' '}
-          {selectionCounts.rows === 1 ? t('toolbar:tableActionMenuPlugin.row') : `${selectionCounts.rows} ${t('toolbar:tableActionMenuPlugin.rows')}`}{' '}
-          {t('toolbar:tableActionMenuPlugin.above')}
+          {selectionCounts.rows === 1 ? 'ligne' : `${selectionCounts.rows} lignes`}{' '}
+          au dessus
         </span>
       </button>
       <button className="item" onClick={() => insertTableRowAtSelection(true)} type="button">
         <span className="text">
-          {t('toolbar:tableActionMenuPlugin.Insert')}
+          Insérer
           {' '}
-          {selectionCounts.rows === 1 ? t('toolbar:tableActionMenuPlugin.row') : `${selectionCounts.rows} ${t('toolbar:tableActionMenuPlugin.rows')}`}{' '}
-          {t('toolbar:tableActionMenuPlugin.below')}
+          {selectionCounts.rows === 1 ? 'ligne' : `${selectionCounts.rows} lignes`}{' '}
+          en dessous
         </span>
       </button>
       <hr />
@@ -357,12 +353,12 @@ function TableActionMenu({
         type="button"
       >
         <span className="text">
-          {t('toolbar:tableActionMenuPlugin.Insert')}
+          Insérer
           {' '}
           {selectionCounts.columns === 1
-            ? t('toolbar:tableActionMenuPlugin.column')
-            : `${selectionCounts.columns} ${t('toolbar:tableActionMenuPlugin.columns')}`}{' '}
-          {t('toolbar:tableActionMenuPlugin.left')}
+            ? 'column'
+            : `${selectionCounts.columns} columns`}{' '}
+          à droite
         </span>
       </button>
       <button
@@ -371,30 +367,28 @@ function TableActionMenu({
         type="button"
       >
         <span className="text">
-          {t('toolbar:tableActionMenuPlugin.Insert')}
+          Insérer
           {' '}
           {selectionCounts.columns === 1
-            ? t('toolbar:tableActionMenuPlugin.column')
-            : `${selectionCounts.columns} ${t('toolbar:tableActionMenuPlugin.columns')}`}{' '}
-          {t('toolbar:tableActionMenuPlugin.right')}
+            ? 'column'
+            : `${selectionCounts.columns} columns`}{' '}
+          à gauche
         </span>
       </button>
       <hr />
       <button className="item" onClick={() => deleteTableColumnAtSelection()} type="button">
         <span className="text">
-          {t('toolbar:tableActionMenuPlugin.Delete_column')}
-
+          Supprimer la colonne
         </span>
       </button>
       <button className="item" onClick={() => deleteTableRowAtSelection()} type="button">
         <span className="text">
-          {t('toolbar:tableActionMenuPlugin.Delete_row')}
-
+          Supprimer la ligne
         </span>
       </button>
       <button className="item" onClick={() => deleteTableAtSelection()} type="button">
         <span className="text">
-          {t('toolbar:tableActionMenuPlugin.Delete_table')}
+          Supprimer la table
         </span>
       </button>
       <hr />
@@ -402,18 +396,18 @@ function TableActionMenu({
         <span className="text">
           {(tableCellNode.__headerState & TableCellHeaderStates.ROW) ===
             TableCellHeaderStates.ROW
-            ? t('action:Remove')
-            : t('action:Add')}{' '}
-          {t('toolbar:tableActionMenuPlugin.row_header')}
+            ? 'Supprimer'
+            : 'Ajouter'}{' '}
+          en-tête de ligne
         </span>
       </button>
       <button className="item" onClick={() => toggleTableColumnIsHeader()} type="button">
         <span className="text">
           {(tableCellNode.__headerState & TableCellHeaderStates.COLUMN) ===
             TableCellHeaderStates.COLUMN
-            ? t('action:Remove')
-            : t('action:Add ')}{' '}
-          {t('toolbar:tableActionMenuPlugin.column_header')}
+            ? 'Supprimer'
+            : 'Ajouter'}{' '}
+          en-tête de colonne
         </span>
       </button>
     </div>,
@@ -431,7 +425,6 @@ function TableCellActionMenuContainer(): JSX.Element {
   const [tableCellNode, setTableMenuCellNode] = useState<TableCellNode | null>(
     null
   );
-  const { t } = useTranslation(['toolbar', 'action']);
 
 
   const moveMenu = useCallback(() => {
@@ -543,7 +536,6 @@ function TableCellActionMenuContainer(): JSX.Element {
               setIsMenuOpen={setIsMenuOpen}
               onClose={() => setIsMenuOpen(false)}
               tableCellNode={tableCellNode}
-              t={t}
             />
           )}
         </>

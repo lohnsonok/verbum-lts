@@ -35,8 +35,6 @@ import {
   SPEECH_TO_TEXT_COMMAND,
   SUPPORT_SPEECH_RECOGNITION,
 } from './SpeechToTextPlugin';
-import { useTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
 
 export default function ActionsPlugin({
   isRichText,
@@ -51,7 +49,6 @@ export default function ActionsPlugin({
   const [modal, showModal] = useModal();
   const { yjsDocMap } = useCollaborationContext();
   const isCollab = yjsDocMap.get('main') !== undefined;
-  const { t } = useTranslation(['action']);
 
   useEffect(() => {
     return mergeRegister(
@@ -123,8 +120,8 @@ export default function ActionsPlugin({
             'action-button action-button-mic ' +
             (isSpeechToText ? 'active' : '')
           }
-          title={t('action:Speech_To_Text')}
-          aria-label={`${isSpeechToText ? t('action:Enable') : t('action:Disable')} ${t('action:speech_To_Text')}`}
+          title="Voix vers texte"
+          aria-label={`${isSpeechToText ? 'Activer' : 'Désactiver'} voix vers texte`}
           type="button"
         >
           <i className="mic" />
@@ -133,8 +130,8 @@ export default function ActionsPlugin({
       <button
         className="action-button import"
         onClick={() => importFile(editor)}
-        title={t('action:Import')}
-        aria-label={t('action:Import_Description')}
+        title="Importer"
+        aria-label="Importer l'état de l'éditeur en JSON"
         type="button"
       >
         <i className="import" />
@@ -147,8 +144,8 @@ export default function ActionsPlugin({
             source: 'Playground',
           })
         }
-        title={t('action:Export')}
-        aria-label={t('action:Export_Description')}
+        title="Exporter"
+        aria-label="Exporter l'état de l'éditeur en JSON"
         type="button"
       >
         <i className="export" />
@@ -158,13 +155,13 @@ export default function ActionsPlugin({
         disabled={isEditorEmpty}
         onClick={() => {
           showModal(
-            t('action:Clear_Editor')
-            , (onClose) => (
-              <ShowClearDialog editor={editor} onClose={onClose} t={t} />
+            'Effacer l\'éditeur',
+            (onClose) => (
+              <ShowClearDialog editor={editor} onClose={onClose} />
             ));
         }}
-        title={t('action:Clear')}
-        aria-label={t('action:Clear_Description')}
+        title="Effacer"
+        aria-label="Effacer le contenu de l'éditeur"
         type="button"
       >
         <i className="clear" />
@@ -174,8 +171,8 @@ export default function ActionsPlugin({
         onClick={() => {
           editor.setReadOnly(!editor.isReadOnly());
         }}
-        title={t('action:Read-Only_Mode')}
-        aria-label={`${isReadOnly ? t('action:Unlock') : t('action:Lock')} ${t('action:Read-Only_Mode')}`}
+        title="Mode lecture seule"
+        aria-label={`${isReadOnly ? 'Déverrouiller' : 'Verrouiller'} mode lecture seule`}
         type="button"
       >
         <i className={isReadOnly ? 'unlock' : 'lock'} />
@@ -183,8 +180,8 @@ export default function ActionsPlugin({
       <button
         className="action-button"
         onClick={handleMarkdownToggle}
-        title={t('action:Convert_From_Markdown')}
-        aria-label={t('action:Convert_From_Markdown_Description')}
+        title="Convertir à partir de Markdown"
+        aria-label="Convertir à partir de Markdown"
         type="button"
       >
         <i className="markdown" />
@@ -196,13 +193,13 @@ export default function ActionsPlugin({
             onClick={() => {
               editor.dispatchCommand(TOGGLE_CONNECT_COMMAND, !connected);
             }}
-            title={`${connected ? t('action:Disconnect') : t('action:Connect')
-              } ${t('action:Collaborative')}`}
-            aria-label={`${connected ? t('action:Disconnect_From') : t('action:Connect_To')
-              } ${t('action:Server')}`}
+            title={`${connected ? 'Déconnecter' : 'Connecter'
+              } Édition collaborative`}
+            aria-label={`${connected ? 'Déconnecter de' : 'Connecter à'
+              } un serveur d'édition collaborative`}
             type="button"
           >
-            <i className={connected ? t('action:disconnect') : t('action:connect')} />
+            <i className={connected ? 'déconnecter' : 'connecter'} />
           </button>
         )
       }
@@ -214,15 +211,13 @@ export default function ActionsPlugin({
 function ShowClearDialog({
   editor,
   onClose,
-  t
 }: {
   editor: LexicalEditor;
   onClose: () => void;
-  t: TFunction;
 }): JSX.Element {
   return (
     <>
-      {t('action:Confirm_Clear')}
+      Êtes-vous sûr de vouloir effacer l'éditeur ?
       <div className="Modal__content">
         <Button
           onClick={() => {
@@ -231,7 +226,7 @@ function ShowClearDialog({
             onClose();
           }}
         >
-          {t('action:Clear')}
+          Effacer
         </Button>{' '}
         <Button
           onClick={() => {
@@ -239,7 +234,7 @@ function ShowClearDialog({
             onClose();
           }}
         >
-          {t('action:Cancel')}
+          Annuler
         </Button>
       </div>
     </>
