@@ -223,7 +223,7 @@ export default function ImageResizer({
             setShowCaption(!showCaption);
           }}
         >
-          Add Caption
+          Ajouter une légende
         </button>
       )}
       <div

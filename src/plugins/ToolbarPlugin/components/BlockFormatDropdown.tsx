@@ -19,17 +19,17 @@ import DropDown from '../../../ui/DropDown';
 import ToolbarContext from '../../../context/ToolbarContext';
 
 const blockTypeToBlockName = {
-  bullet: 'Bulleted List',
-  check: 'Check List',
-  code: 'Code Block',
-  h1: 'Heading 1',
-  h2: 'Heading 2',
-  h3: 'Heading 3',
-  h4: 'Heading 4',
-  h5: 'Heading 5',
-  number: 'Numbered List',
+  bullet: 'Liste à puces',
+  check: 'Liste de contrôle',
+  code: 'Bloc de code',
+  h1: 'Titre 1',
+  h2: 'Titre 2',
+  h3: 'Titre 3',
+  h4: 'Titre 4',
+  h5: 'Titre 5',
+  number: 'Liste numérotée',
   paragraph: 'Normal',
-  quote: 'Quote',
+  quote: 'Citation',
 };
 
 const BlockFormatDropdown = () => {
